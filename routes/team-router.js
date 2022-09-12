@@ -1,19 +1,20 @@
 
 const teamRouter = require('express').Router();
 
+const teamController = require('../controllers/team-controller');
 
 teamRouter.route('/')
-    .get((req, res) => {res.sendStatus(501)})
-    .post((req, res) => {res.sendStatus(501)});
+    .get(teamController.getAll)
+    .post(teamController.create);
 
 teamRouter.route('/:id')
-    .get((req, res) => {res.sendStatus(501)})
-    .put((req, res) => {res.sendStatus(501)})
-    .delete((req, res) => {res.sendStatus(501)});
+    .get(teamController.getById)
+    .put(teamController.update)
+    .delete(teamController.delete);
 
 // ↓ toutes les équipes liées à un utilisateur
-teamRouter.route('/:user')
-    .get((req, res) => {res.sendStatus(501)})
+// teamRouter.route('/:user')
+//     .get(teamController.getByUser)
 
 
 module.exports = teamRouter;

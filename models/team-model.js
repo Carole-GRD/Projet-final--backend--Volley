@@ -10,10 +10,10 @@ const teamSchema = new Schema({
         type : String,
         trim : true
     },
-    players : {
+    userId : [{
         type : Types.ObjectId,
         ref : User
-    }
+    }]
 }, {
     collection : 'Team',
     timestamps : true

@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 
+
 const userSchema = new Schema({
     pseudo : {
         type : String,
@@ -31,7 +32,7 @@ const userSchema = new Schema({
         enum : ['réceptionneur attaquant', 'pointu', 'central', 'passeur', 'libéro']
     },
     team : {
-        type : String,
+        type : Array,
         trim : true
     },
     email : {

@@ -1,7 +1,6 @@
 const UserDTO = require("../dto/user-dto");
 const User = require("../models/user-model");
 
-
 const userMapperToDTO = (user) => new UserDTO(user.id, user.pseudo, user.lastname, user.firstname, user.position, user.team);
 
 const userController = {
@@ -22,16 +21,6 @@ const userController = {
         }
         const userDTO = userMapperToDTO(user);
         res.status(200).json(userDTO);
-    },
-    getByTeam : async (req, res) => {
-        console.log('Afficher les utilisateurs liés à une équipe');
-        res.sendStatus(501);
-        // const idTeam = req.params.id;
-        // const users = await User.findById(id);
-        // const usersDTO = users.map(userMapperToDTO);
-        // const count = await User.countDocuments();
-        // const data = {'users' : usersDTO, 'count' : count};
-        // res.status(200).json(data);
     },
     // ------------------------------------------------------------------------
     // ↓ "create" est une route temporaire pour créer quelques "users" en attendant de faire le "register"

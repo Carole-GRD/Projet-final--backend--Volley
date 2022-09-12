@@ -17,10 +17,5 @@ userRouter.route('/:id')
     .put(userController.update)
     .delete(userController.delete);
 
-    
-// ↓ tous les membres d'une équipe
-userRouter.route('/:team')
-    .get(userController.getByTeam);
-
 
 module.exports = userRouter;

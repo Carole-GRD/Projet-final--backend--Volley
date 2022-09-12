@@ -1,20 +1,46 @@
+const Team = require("../models/team-model");
 
 const teamController = {
-    getAll : (req, res) => {
-        console.log('Récupération de toutes les équipes');
-        res.sendStatus(501);
+    getAll : async (req, res) => {
+        const teams = await Team.find()
+            .populate({
+                path : 'userId',
+                select : { _id : 1, lastname : 1 , firstname : 1, position : 1 }
+            });
+        
+        res.status(200).json(teams);
     },
-    getById : (req, res) => {
-        console.log(`Récupération de l'équipe dont l'id est [${req.params.id}]`);
-        res.sendStatus(501);
+    getById : async (req, res) => {
+        const id = req.params.id;
+
+        const team = await Team.findById(id)
+            .populate({
+                path : 'userId',
+                select : { _id : 1, lastname : 1 , firstname : 1 }
+            });
+        
+        if (!team) {
+            return res.sendStatus(404);
+        }
+
+        res.status(200).json(team);
     },
-    getByUser : (req, res) => {
-        console.log('Récupération des équipes liées à un utilisateur');
-        res.sendStatus(501);
-    },
-    create : (req, res) => {
-        console.log('Création d\'une nouvelle équipe');
-        res.sendStatus(501);
+    // getByUser : async (req, res) => {
+    //     const idUser = req.params.id;
+    //     console.log(idUser);
+    //     const userFilter = { userId : idUser};
+        
+    //     const teams = await Team.find(userFilter);
+        
+    //     if (!teams) {
+    //         return res.sendStatus(404);
+    //     }
+    //     res.status(200).json(teams);
+    // },
+    create : async (req, res) => {
+        const teamToAdd = Team(req.body);
+        await teamToAdd.save();
+        res.status(200).json(teamToAdd);
     },
     update : (req, res) => {
         console.log(`Modification de l'équipe dont l'id est [${req.params.id}]`);
