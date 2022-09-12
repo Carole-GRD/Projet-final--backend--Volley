@@ -1,0 +1,27 @@
+{
+  "name": "reactvolleyclubbackend",
+  "version": "1.0.0",
+  "description": "Projet final individuel réalisé lors de la formation JSFS IF3N",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cross-env NODE_ENV=production node app.js",
+    "dev": "cross-env NODE_ENV=development nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Carole-GRD/Projet-final--backend--JSFS--IF3N.git"
+  },
+  "author": "Carole Gérard",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Carole-GRD/Projet-final--backend--JSFS--IF3N/issues"
+  },
+  "homepage": "https://github.com/Carole-GRD/Projet-final--backend--JSFS--IF3N#readme",
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv-flow": "^3.2.0",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.19"
+  }
+}
