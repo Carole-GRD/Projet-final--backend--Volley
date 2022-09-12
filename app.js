@@ -11,7 +11,7 @@ const app = express();
 require('express-async-errors');
 
 // import du module router présent dans index.js en important tout le dossier routes
-const router = require('/routes');
+const router = require('./routes');
 
 // Route temporaire
 app.get('/user', (req, res) => {

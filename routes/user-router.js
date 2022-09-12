@@ -1,8 +1,16 @@
 
 const userRouter = require('express').Router();
 
+const userController = require('../controllers/user-controller');
+
+
 userRouter.route('/')
-    .get((req, res) => {res.sendStatus(501)})
+    .get(userController.getAll)
+    .post(userController.create);
+    // ------------------------------------------------------------------------
+    // ↑ "post" est une route temporaire pour créer quelques "users" en attendant de faire le "register"
+    //  à commenter ou à supprimer par la suite   
+    // ------------------------------------------------------------------------
 
 userRouter.route('/:id')
     .get((req, res) => {res.sendStatus(501)})
