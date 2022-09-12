@@ -1,32 +1,78 @@
+const UserDTO = require("../dto/user-dto");
+const User = require("../models/user-model");
+
+
+const userMapperToDTO = (user) => new UserDTO(user.id, user.pseudo, user.lastname, user.firstname, user.position, user.team);
 
 const userController = {
-    getAll : (req, res) => {
-        console.log('Récupération de tous les utilisateurs');
-        res.sendStatus(501);
+    getAll : async (req, res) => {
+
+        const users = await User.find();
+
+        const usersDTO = users.map(userMapperToDTO);
+        res.status(200).json(usersDTO);
     },
-    getById : (req, res) => {
-        console.log('Récupération d\'un utilisateur');
-        res.sendStatus(501);
+    getById : async (req, res) => {
+
+        const id = req.params.id;
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.sendStatus(404);
+        }
+        const userDTO = userMapperToDTO(user);
+        res.status(200).json(userDTO);
     },
-    getByTeam : (req, res) => {
-        console.log('Récupération de tous les utilisateurs liés à une équipe');
+    getByTeam : async (req, res) => {
+        console.log('Afficher les utilisateurs liés à une équipe');
         res.sendStatus(501);
+        // const idTeam = req.params.id;
+        // const users = await User.findById(id);
+        // const usersDTO = users.map(userMapperToDTO);
+        // const count = await User.countDocuments();
+        // const data = {'users' : usersDTO, 'count' : count};
+        // res.status(200).json(data);
     },
     // ------------------------------------------------------------------------
     // ↓ "create" est une route temporaire pour créer quelques "users" en attendant de faire le "register"
     //  à commenter ou à supprimer par la suite   
     // ------------------------------------------------------------------------
-    create : (req, res) => {
-        console.log('Créer un utilisateur');
-        res.sendStatus(501);
+    create : async (req, res) => {
+
+        const userToAdd = User(req.body);
+        await userToAdd.save();
+        res.status(200).json(userToAdd);
+
+        },
+    update : async (req, res) => {
+        const id = req.params.id;
+        const { pseudo, lastname, firstname, position, team, email, phone } = req.body;
+
+        const userToUpdate = await User.findByIdAndUpdate(id, {
+            pseudo,
+            lastname,
+            firstname,
+            position,
+            team,
+            email,
+            phone
+        }, { returnDocument : 'after'});
+
+        if (!userToUpdate) {
+            return res.sendStatus(404);
+        }
+        const userDTO = userMapperToDTO(userToUpdate);
+        res.status(200).json(userDTO);
+
     },
-    update : (req, res) => {
-        console.log('Modifier un utilisateur');
-        res.sendStatus(501);
-    },
-    delete : (req, res) => {
-        console.log('Supprimer un utilisateur');
-        res.sendStatus(501);
+    delete : async (req, res) => {
+        const id = req.params.id;
+        const userToDelete = await User.findByIdAndDelete(id);
+
+        if (!userToDelete) {
+            return res.sendStatus(404);
+        }
+        res.sendStatus(204);
     }
 };
 

@@ -13,14 +13,14 @@ userRouter.route('/')
     // ------------------------------------------------------------------------
 
 userRouter.route('/:id')
-    .get((req, res) => {res.sendStatus(501)})
-    .put((req, res) => {res.sendStatus(501)})
-    .delete((req, res) => {res.sendStatus(501)});
+    .get(userController.getById)
+    .put(userController.update)
+    .delete(userController.delete);
 
     
 // ↓ tous les membres d'une équipe
 userRouter.route('/:team')
-    .get((req, res) => {res.sendStatus(501)});
+    .get(userController.getByTeam);
 
 
 module.exports = userRouter;
