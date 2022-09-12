@@ -22,9 +22,9 @@ const userSchema = new Schema({
     },
     role : {
         type : String,
-        enum : ['Player', 'Coach', 'Admin'],
+        enum : ['player', 'coach', 'admin'],
         required : true,
-        default : 'Player'
+        default : 'player'
     },
     position : {
         type : String,
@@ -32,7 +32,7 @@ const userSchema = new Schema({
     },
     team : {
         type : String,
-        enum : ['Minime', 'Cadet', 'P4D', 'P3D', 'P2D', 'P3H', 'P1H']
+        trim : true
     },
     email : {
         type : String,

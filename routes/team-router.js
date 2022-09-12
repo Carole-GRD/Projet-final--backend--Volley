@@ -1,6 +1,6 @@
 
-
 const teamRouter = require('express').Router();
+
 
 teamRouter.route('/')
     .get((req, res) => {res.sendStatus(501)})
