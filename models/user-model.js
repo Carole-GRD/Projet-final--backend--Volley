@@ -17,6 +17,10 @@ const userSchema = new Schema({
         required : true,
         trim : true
     },
+    adress : {
+        type : String,
+        trim : true
+    },
     password : {
         type : String,       
         required : true
@@ -29,7 +33,8 @@ const userSchema = new Schema({
     },
     position : {
         type : String,
-        enum : ['réceptionneur attaquant', 'pointu', 'central', 'passeur', 'libéro']
+        enum : ['réceptionneur attaquant', 'pointu', 'central', 'passeur', 'libéro', ''],
+        default : ''
     },
     team : {
         type : Array,
@@ -57,4 +62,4 @@ const userSchema = new Schema({
 
 const User = model('User', userSchema);
 
-module.exports = User ;
+module.exports = User;

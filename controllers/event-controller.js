@@ -1,28 +1,98 @@
+const Event = require('../models/event-model');
 
 const eventController = {
-    getAll : (req, res) => {
-        console.log('Récupération de toutes les activités');
-        res.sendStatus(501);
+    getAll : async (req, res) => {
+        const events = await Event.find()
+            .populate({
+                path: 'teamId',
+                select : { _id : 1, name : 1 }
+            })
+            .populate({
+                path: 'presentId',
+                select : { _id : 1, lastname : 1, firstname : 1 }
+            })
+            .populate({
+                path: 'absentId',
+                select : { _id : 1, lastname : 1, firstname : 1 }
+            });
+            
+            res.status(200).json(events);
     },
-    getById : (req, res) => {
-        console.log(`Récupération de l'activité dont l'id est [${req.params.id}]`);
-        res.sendStatus(501);
+    getById : async (req, res) => {
+        const id = req.params.id;
+        const event = await Event.findById(id)
+            .populate({
+                path: 'teamId',
+                select : { _id : 1, name : 1 }
+            })
+            .populate({
+                path: 'presentId',
+                select : { _id : 1, lastname : 1, firstname : 1 }
+            })
+            .populate({
+                path: 'absentId',
+                select : { _id : 1, lastname : 1, firstname : 1 }
+            });
+        
+            if (!event) {
+                return res.sendStatus(404);
+            }
+            res.status(200).json(event);
     },
-    getByTeam : (req, res) => {
-        console.log('Récupération des activités liées à une équipe');
-        res.sendStatus(501);
+    getByTeam : async (req, res) => {
+        const idTeam = req.params.id;
+        const teamFilter = { teamId : idTeam};
+
+        const events = await Event.find(teamFilter)
+            .populate({
+                path: 'teamId',
+                select : { _id : 1, name : 1 }
+            })
+            .populate({
+                path: 'presentId',
+                select : { _id : 1, lastname : 1, firstname : 1 }
+            })
+            .populate({
+                path: 'absentId',
+                select : { _id : 1, lastname : 1, firstname : 1 }
+            });
+
+            if (!events) {
+                return res.sendStatus(404);
+            }
+            res.status(200).json(events);
     },
-    create : (req, res) => {
-        console.log('Création d\'une activité');
-        res.sendStatus(501);
+    create : async (req, res) => {
+        const eventToAdd = Event(req.body);
+        await eventToAdd.save();
+        res.status(200).json(eventToAdd);
     },
-    update : (req, res) => {
-        console.log(`Modification de l'activité dont l'id est [${req.params.id}]`);
-        res.sendStatus(501);
+    update : async (req, res) => {
+        const id = req.params.id;
+        const { name, date, time, opposingTeam, presentId, absentId } = req.body;
+
+        const eventToUpdate = await Event.findByIdAndUpdate(id, {
+            name,
+            date,
+            time,
+            opposingTeam,
+            presentId,
+            absentId
+        }, { returnDocument : 'after'});
+
+        if (!eventToUpdate) {
+            return res.sendStatus(404);
+        }
+        res.status(200).json(eventToUpdate);
     },
-    delete : (req, res) => {
-        console.log(`Suppression de l'activité dont l'id est [${req.params.id}]`);
-        res.sendStatus(501);
+    delete : async (req, res) => {
+        const id = req.params.id;
+        const eventToDelete = await Event.findByIdAndDelete(id);
+
+        if (!eventToDelete) {
+            return res.sendStatus(404);
+        }
+        res.sendStatus(204);
     }
 };
 

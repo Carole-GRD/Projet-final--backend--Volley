@@ -1,17 +1,17 @@
-import Team from './team-model';
-import User from './user-model';
+const Team = require('./team-model');
+const User = require('./user-model');
 
 const { Schema, model, Types } = require('mongoose');
 
 const eventSchema = new Schema({
-    team : {
+    teamId : {
         type : Types.ObjectId,
         ref : Team,
-        require : true,
-        trim : true
+        require : true
     },
     name : {
         type : String,
+        enum : ['Match', 'Entrainement'],
         trim : true
     },
     date : {
@@ -28,14 +28,14 @@ const eventSchema = new Schema({
         type : String,
         trim : true
     },
-    present : {
+    presentId : [{
         type : Types.ObjectId,
         ref : User
-    },
-    absent : {
+    }],
+    absentId : [{
         type : Types.ObjectId,
         ref : User
-    }
+    }]
 }, {
     collection : 'Event',
     timestamps : true

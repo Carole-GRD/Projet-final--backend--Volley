@@ -1,7 +1,7 @@
 const UserDTO = require("../dto/user-dto");
 const User = require("../models/user-model");
 
-const userMapperToDTO = (user) => new UserDTO(user.id, user.pseudo, user.lastname, user.firstname, user.position, user.team);
+const userMapperToDTO = (user) => new UserDTO(user.id, user.pseudo, user.lastname, user.firstname, user.adress, user.position);
 
 const userController = {
     getAll : async (req, res) => {
