@@ -25,30 +25,51 @@ const teamController = {
 
         res.status(200).json(team);
     },
-    // getByUser : async (req, res) => {
-    //     const idUser = req.params.id;
-    //     console.log(idUser);
-    //     const userFilter = { userId : idUser};
+    getByUser : async (req, res) => {
+        const idUser = req.params.id;
+        const userFilter = { userId : idUser };
         
-    //     const teams = await Team.find(userFilter);
-        
-    //     if (!teams) {
-    //         return res.sendStatus(404);
-    //     }
-    //     res.status(200).json(teams);
-    // },
+        const teams = await Team.find(userFilter)
+            .populate({
+                path : 'userId',
+                select : { _id : 1, lastname : 1 , firstname : 1 }
+            });
+
+        if (!teams) {
+            return res.sendStatus(404);
+        }
+        res.status(200).json(teams);
+    },
     create : async (req, res) => {
         const teamToAdd = Team(req.body);
         await teamToAdd.save();
         res.status(200).json(teamToAdd);
     },
-    update : (req, res) => {
-        console.log(`Modification de l'équipe dont l'id est [${req.params.id}]`);
-        res.sendStatus(501);
+    update : async (req, res) => {
+        const id = req.params.id;
+        console.log(req.body);
+        const { name, coach, userID } = req.body;
+
+        const teamToUpdate = await Team.findByIdAndUpdate(id, {
+            name,
+            coach,
+            userID
+        }, { returnDocument : 'after' });
+
+        if (!teamToUpdate) {
+            return res.sendStatus(404);
+        }
+        // res.sendStatus(204);
+        res.status(200).json(teamToUpdate);
     },
-    delete : (req, res) => {
-        console.log(`Suppression de l'équipe dont l'id est [${req.params.id}]`);
-        res.sendStatus(501);
+    delete : async (req, res) => {
+        const id = req.params.id;
+        const teamToDelete = await Team.findByIdAndDelete(id);
+
+        if (!teamToDelete) {
+            return res.sendStatus(404);
+        }
+        res.sendStatus(204);
     },
 };
 

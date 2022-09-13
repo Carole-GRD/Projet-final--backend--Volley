@@ -13,8 +13,8 @@ teamRouter.route('/:id')
     .delete(teamController.delete);
 
 // ↓ toutes les équipes liées à un utilisateur
-// teamRouter.route('/:user')
-//     .get(teamController.getByUser)
+teamRouter.route('/user/:id')
+    .get(teamController.getByUser)
 
 
 module.exports = teamRouter;
