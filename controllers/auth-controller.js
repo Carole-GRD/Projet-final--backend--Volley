@@ -19,6 +19,8 @@ const authController = {
         }
 
         return res.json({msg : 'Vous êtes bien connecté.e'});
+        // const token = await jwtUtils.generate(userToLogin);
+        // return res.status(200).json({token});
     },
     register : async (req, res) => {
         
@@ -38,6 +40,8 @@ const authController = {
 
         await userToRegister.save();
         res.status(200).json(userToRegister);
+        // const token = await jwtUtils.generate(userToRegister);
+        // return res.status(200).json({token});
     }
 };
 
