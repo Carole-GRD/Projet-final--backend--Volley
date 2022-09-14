@@ -4,6 +4,10 @@ const teamController = {
     getAll : async (req, res) => {
         const teams = await Team.find()
             .populate({
+                path : 'coach',
+                select : { _id : 1, lastname : 1 , firstname : 1 }
+            })
+            .populate({
                 path : 'userId',
                 select : { _id : 1, lastname : 1 , firstname : 1, position : 1 }
             });
@@ -32,7 +36,7 @@ const teamController = {
         const teams = await Team.find(userFilter)
             .populate({
                 path : 'userId',
-                select : { _id : 1, lastname : 1 , firstname : 1 }
+                select : { _id : 1, lastname : 1 , firstname : 1, position : 1 }
             });
 
         if (!teams) {
@@ -47,7 +51,7 @@ const teamController = {
     },
     update : async (req, res) => {
         const id = req.params.id;
-        console.log(req.body);
+        // console.log(req.body);
         const { name, coach, userID } = req.body;
 
         const teamToUpdate = await Team.findByIdAndUpdate(id, {

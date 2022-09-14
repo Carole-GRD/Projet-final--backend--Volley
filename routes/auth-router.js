@@ -1,16 +1,16 @@
 const authRouter = require('express').Router();
 const authController = require('../controllers/auth-controller');
 
-// const bodyValidator = require('../middlewares/body-validator');
-// const { loginValidator, registerValidator } = require('../validators/auth-validator');
+const bodyValidation = require('../middlewares/body-validation');
+const { loginValidator, registerValidator } = require('../validators/auth-validator');
 
 
 authRouter.route('/login')
-    .post(authController.login);
-    // .post(bodyValidator(loginValidator), authController.login);
+    // .post(authController.login);
+    .post(bodyValidation(loginValidator), authController.login);
 
 authRouter.route('/register')
-    .post(authController.register);
-    // .post(bodyValidator(registerValidator), authController.register);
+    // .post(authController.register);
+    .post(bodyValidation(registerValidator), authController.register);
 
 module.exports = authRouter;

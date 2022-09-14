@@ -1,15 +1,15 @@
 const UserDTO = require("../dto/user-dto");
 const User = require("../models/user-model");
-
-const userMapperToDTO = (user) => new UserDTO(user.id, user.pseudo, user.lastname, user.firstname, user.adress, user.position);
+// TODO:  retirer "role", c'est juste pour les tests !
+const userMapperToDTO = (user) => new UserDTO(user.id, user.pseudo, user.lastname, user.firstname, user.adress, user.role, user.position, user.email, user.phone, user.licence);
 
 const userController = {
     getAll : async (req, res) => {
 
         const users = await User.find();
 
-        const usersDTO = users.map(userMapperToDTO);
-        res.status(200).json(usersDTO);
+        const userDTO = users.map(userMapperToDTO);
+        res.status(200).json(userDTO);
     },
     getById : async (req, res) => {
 
@@ -27,24 +27,24 @@ const userController = {
     //  à commenter ou à supprimer par la suite   
     // ------------------------------------------------------------------------
     create : async (req, res) => {
-
         const userToAdd = User(req.body);
         await userToAdd.save();
         res.status(200).json(userToAdd);
-
         },
     update : async (req, res) => {
         const id = req.params.id;
-        const { pseudo, lastname, firstname, position, team, email, phone } = req.body;
+        const { pseudo, lastname, firstname, adress, role, position, email, phone, licence } = req.body;
 
         const userToUpdate = await User.findByIdAndUpdate(id, {
             pseudo,
             lastname,
             firstname,
+            adress,
+            role,
             position,
-            team,
             email,
-            phone
+            phone,
+            licence
         }, { returnDocument : 'after'});
 
         if (!userToUpdate) {

@@ -1,8 +1,7 @@
 const yup = require('yup');
 
 const pwdRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W|_]).+$/;
-// TODO: trouver une autre regex pour le téléphone !
-const phoneRegex = /^([+]?\d{1,2}[-\s]?|)\d{3}[-\s]?\d{3}[-\s]?\d{4}$/;
+const phoneRegex = /^[0][0-9]{2,3}(\s*[0-9]{2}){3}$/;
 
 const registerValidator = yup.object({
     pseudo : yup.string().trim().required().min(3).max(50),

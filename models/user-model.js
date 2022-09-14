@@ -33,13 +33,13 @@ const userSchema = new Schema({
     },
     position : {
         type : String,
-        enum : ['réceptionneur attaquant', 'pointu', 'central', 'passeur', 'libéro', ''],
-        default : ''
+        enum : ['réceptionneur attaquant', 'pointu', 'central', 'passeur', 'libéro', 'aucune'],
+        default : 'aucune'
     },
-    team : {
-        type : Array,
-        trim : true
-    },
+    // team : {
+    //     type : Array,
+    //     trim : true
+    // },
     email : {
         type : String,
         required : true,

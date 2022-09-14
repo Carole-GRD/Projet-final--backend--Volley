@@ -7,21 +7,22 @@ const eventSchema = new Schema({
     teamId : {
         type : Types.ObjectId,
         ref : Team,
-        require : true
+        required : true
     },
     name : {
         type : String,
         enum : ['Match', 'Entrainement'],
+        required : true,
         trim : true
     },
     date : {
         type : String,
-        require : true,
+        required : true,
         trim : true
     },
     time : {
         type : String,
-        require : true,
+        required : true,
         trim : true
     },
     opposingTeam : {

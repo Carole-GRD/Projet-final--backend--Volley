@@ -1,10 +1,10 @@
 
-const bodyValidator = (yupValidator) => {
+const bodyValidation = (yupValidator) => {
     return async (req, res, next) => {
         
         try {
             
-            const validData = await yupValidator.validate(req.body, {abortEarly : false});
+            const validData = await yupValidator.noUnknown().validate(req.body, {abortEarly : false});
             
             req.body = validData;
 
@@ -18,4 +18,4 @@ const bodyValidator = (yupValidator) => {
     }
 };
 
-module.exports = bodyValidator;
+module.exports = bodyValidation;

@@ -1,5 +1,5 @@
 const User = require("../models/user-model");
-
+const jwtUtils = require('../utils/jwt-utils');
 const argon2 = require('argon2');
 
 const authController = {
@@ -18,9 +18,9 @@ const authController = {
             return res.status(401).json({ error : 'Données invalides'});
         }
 
-        return res.json({msg : 'Vous êtes bien connecté.e'});
-        // const token = await jwtUtils.generate(userToLogin);
-        // return res.status(200).json({token});
+        // return res.json({msg : 'Vous êtes bien connecté.e'});
+        const token = await jwtUtils.generate(userToLogin);
+        return res.status(200).json({token});
     },
     register : async (req, res) => {
         
@@ -39,9 +39,9 @@ const authController = {
         });
 
         await userToRegister.save();
-        res.status(200).json(userToRegister);
-        // const token = await jwtUtils.generate(userToRegister);
-        // return res.status(200).json({token});
+        // res.status(200).json(userToRegister);
+        const token = await jwtUtils.generate(userToRegister);
+        return res.status(200).json({token});
     }
 };
 

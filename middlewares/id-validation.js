@@ -1,18 +1,17 @@
 const mongoose = require("mongoose");
 
-const idValidator = () => {
+const idValidation = () => {
     return (req, res, next) => {
         
         const id = req.params.id;
         
         if ( !mongoose.isValidObjectId(id) ) 
         {
-            res.sendStatus(400);    
-            return;    
+            return res.sendStatus(400);       
         }
         
         next();
     }
 }
 
-module.exports = idValidator;
+module.exports = idValidation;
