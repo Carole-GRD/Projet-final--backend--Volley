@@ -20,7 +20,7 @@ const authController = {
 
         // return res.json({msg : 'Vous êtes bien connecté.e'});
         const token = await jwtUtils.generate(userToLogin);
-        return res.status(200).json({token});
+        return res.status(200).json({token, userId : userToLogin._id});
     },
     register : async (req, res) => {
         
@@ -42,7 +42,18 @@ const authController = {
         // res.status(200).json(userToRegister);
         const token = await jwtUtils.generate(userToRegister);
         return res.status(200).json({token});
-    }
+    },
+
+    // logout : async (req, res) => {
+    //     try {
+    //         req.session.destroy();
+    //     }
+    //     catch (error) {
+    //         console.log(error);
+    //     }
+    // }
+    
+
 };
 
 module.exports = authController;

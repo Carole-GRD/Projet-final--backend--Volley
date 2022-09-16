@@ -9,6 +9,10 @@ const eventSchema = new Schema({
         ref : Team,
         required : true
     },
+    coach : {
+        type : Types.ObjectId,
+        ref : User
+    },
     name : {
         type : String,
         enum : ['Match', 'Entrainement'],

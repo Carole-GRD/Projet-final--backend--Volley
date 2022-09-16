@@ -29,7 +29,7 @@ const userValidator = yup.object({
     // position : yup.string().trim().required().matches(positionRegex),
     // team : yup.string().trim().max(50), 
     email : yup.string().trim().email().required().max(255),
-    phone : yup.string().trim().required().matches(phoneRegex),
+    phone : yup.string().trim().required().matches(phoneRegex)
     // licence : yup.string().trim().max(10)
 });
 

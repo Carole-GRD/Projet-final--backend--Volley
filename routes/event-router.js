@@ -8,7 +8,7 @@ const eventValidator = require('../validators/event-validator');
 
 eventRouter.route('/')
     .get(eventController.getAll)
-    .post(eventController.create);
+    .post(bodyValidation(eventValidator), eventController.create);
     // .post(authentication(['coach', 'admin']), bodyValidation(eventValidator), eventController.create);
 
 eventRouter.route('/:id')

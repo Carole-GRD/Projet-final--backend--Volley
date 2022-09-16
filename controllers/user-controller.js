@@ -5,8 +5,26 @@ const userMapperToDTO = (user) => new UserDTO(user.id, user.pseudo, user.lastnam
 
 const userController = {
     getAll : async (req, res) => {
+        
+        let roleFilter;
+        const role = req.query.role;
+        
+        if (role) {
+            // Si notre status est un tableau (contient plusieurs status à évaluer)
+            if (Array.isArray(role)) {
+                // Puisqu'on a un tableau, on regarde si le role de chaque reqête a une valeur compris dans le tableau fourni
+                roleFilter = { role : { $in : role } };
+            }
+            else {
+                roleFilter = { role : role };
+            }
+        }
+        else {
+            roleFilter = {};
+        }
 
-        const users = await User.find();
+
+        const users = await User.find(roleFilter);
 
         const userDTO = users.map(userMapperToDTO);
         res.status(200).json(userDTO);

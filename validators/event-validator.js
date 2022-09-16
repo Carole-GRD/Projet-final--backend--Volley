@@ -7,6 +7,7 @@ const timeRegex = /^(?<hour>[0-1]\d|2[0-3])h(?<minute>[0-5]\d)$/;
 
 const eventValidator = yup.object({
     teamId : yup.string().required().matches(idRegex),
+    coach : yup.string().matches(idRegex),
     name : yup.string().trim().required().matches(eventRegex),
     date : yup.string().trim().required().matches(dateRegex),
     time : yup.string().trim().required().matches(timeRegex),

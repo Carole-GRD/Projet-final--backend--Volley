@@ -13,4 +13,8 @@ authRouter.route('/register')
     // .post(authController.register);
     .post(bodyValidation(registerValidator), authController.register);
 
+// authRouter.route('/logout')
+//     .get((req, res) => req.logout());
+
+
 module.exports = authRouter;

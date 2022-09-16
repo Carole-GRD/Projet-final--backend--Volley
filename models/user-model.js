@@ -60,6 +60,7 @@ const userSchema = new Schema({
     timestamps : true
 });
 
-const User = model('User', userSchema);
+userSchema.index({licence : 1}, {sparse : true});
 
+const User = model('User', userSchema);
 module.exports = User;

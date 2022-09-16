@@ -8,6 +8,10 @@ const eventController = {
                 select : { _id : 1, name : 1 }
             })
             .populate({
+                path: 'coach',
+                select : { _id : 1, lastname : 1, firstname : 1 }
+            })
+            .populate({
                 path: 'presentId',
                 select : { _id : 1, lastname : 1, firstname : 1 }
             })
