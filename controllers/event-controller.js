@@ -73,10 +73,11 @@ const eventController = {
     },
     update : async (req, res) => {
         const id = req.params.id;
-        const { name, date, time, opposingTeam, presentId, absentId } = req.body;
+        const { name, place, date, time, opposingTeam, presentId, absentId } = req.body;
 
         const eventToUpdate = await Event.findByIdAndUpdate(id, {
             name,
+            place,
             date,
             time,
             opposingTeam,

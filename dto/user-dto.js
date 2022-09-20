@@ -2,7 +2,7 @@
 // lignes 10, 13 et 19
 
 class UserDTO {
-    id;
+    _id;
     pseudo;
     lastname;
     firstname;
@@ -13,8 +13,8 @@ class UserDTO {
     phone;
     licence
 
-    constructor (id, pseudo, lastname, firstname, adress, role, position, email, phone, licence) {
-        this.id = id;
+    constructor (_id, pseudo, lastname, firstname, adress, role, position, email, phone, licence) {
+        this._id = _id;
         this.pseudo = pseudo;
         this.lastname = lastname;
         this.firstname = firstname;

@@ -15,8 +15,12 @@ const eventSchema = new Schema({
     },
     name : {
         type : String,
-        enum : ['Match', 'Entrainement'],
+        enum : ['Match', 'Entrainement', 'Tournoi'],
         required : true,
+        trim : true
+    },
+    place : {
+        type : String,
         trim : true
     },
     date : {
