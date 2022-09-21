@@ -17,4 +17,15 @@ const eventValidator = yup.object({
     absentId : yup.array().of(yup.string().required().matches(idRegex))
 })
 
-module.exports = eventValidator;
+
+const updateEventValidator = yup.object({
+    name : yup.string().trim().required().matches(eventRegex),
+    place : yup.string().trim().max(100),
+    date : yup.string().trim().required().matches(dateRegex),
+    time : yup.string().trim().required().matches(timeRegex),
+    opposingTeam : yup.string().trim().max(100),
+    presentId : yup.array().of(yup.string().required().matches(idRegex)),
+    absentId : yup.array().of(yup.string().required().matches(idRegex))
+})
+
+module.exports = {eventValidator, updateEventValidator};

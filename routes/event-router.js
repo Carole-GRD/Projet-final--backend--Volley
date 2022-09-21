@@ -4,7 +4,7 @@ const eventController = require('../controllers/event-controller');
 const authentication = require('../middlewares/auth-jwt-middlewares');
 const idValidation = require('../middlewares/id-validation');
 const bodyValidation = require('../middlewares/body-validation');
-const eventValidator = require('../validators/event-validator');
+const {eventValidator, updateEventValidator} = require('../validators/event-validator');
 
 eventRouter.route('/')
     .get(eventController.getAll)
@@ -13,7 +13,7 @@ eventRouter.route('/')
 
 eventRouter.route('/:id')
     .get(idValidation(), eventController.getById)
-    .put(idValidation(), bodyValidation(eventValidator), eventController.update)
+    .put(idValidation(), bodyValidation(updateEventValidator), eventController.update)
     .delete(idValidation(), eventController.delete);
     // .get(authentication(), idValidation(), eventController.getById)
     // .put(authentication(['coach', 'admin']), idValidation(), bodyValidation(eventValidator), eventController.update)
