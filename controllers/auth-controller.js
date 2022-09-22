@@ -20,7 +20,7 @@ const authController = {
 
         // return res.json({msg : 'Vous êtes bien connecté.e'});
         const token = await jwtUtils.generate(userToLogin);
-        return res.status(200).json({token, userId : userToLogin._id, userRole : userToLogin.role});
+        return res.status(200).json({token, userId : userToLogin._id, userRole : userToLogin.role, userFirstName : userToLogin.firstname, userLastName : userToLogin.lastname});
     },
     register : async (req, res) => {
         
@@ -41,7 +41,7 @@ const authController = {
         await userToRegister.save();
         // res.status(200).json(userToRegister);
         const token = await jwtUtils.generate(userToRegister);
-        return res.status(200).json({token, userId : userToRegister._id, userRole : userToRegister.role});
+        return res.status(200).json({token, userId : userToRegister._id, userRole : userToRegister.role, userFirstName : userToRegister.firstname, userLastName : userToRegister.lastname});
     }
 };
 
